@@ -32,7 +32,7 @@ fn main() {
 
 Standard Output 
 
-```shell
+```rust
 false
 false
 true
@@ -63,7 +63,7 @@ fn main() {
 
 Standard Output 
 
-```shell
+```rust
 true
 true
 false
@@ -79,5 +79,118 @@ fn eq(&self, other: &Rhs) -> bool;
 
 # 次序比较
 
-占坑
+PartialOrd 提供了 partial_cmp 的方法。有了上面的经验，我们也先来看一下函数签名
 
+```rust
+fn partial_cmp(&self, other: &Rhs) -> Option<Ordering>;
+```
+
+由此可见，它需要和一个引用比较，且返回一个 Option 的 Ordering。我们盲猜 Ordering 是一个枚举，无非产生集中结果，比大、比小、相等。 但为什么是 Option 呢？
+
+原来有些情况是无法产生次序的，此时就需要返回 None。除了能比（正常执行），不能比（异常退出），还有无法比较的情形。这里又得要提及浮点数的 NaN 了，它们之间是无法比较的。我们实际看几个例子
+
+```rust
+fn main() {
+    let gt = 1.partial_cmp(&0);
+    println!("{:?}", gt);
+    
+    let lt = 0.partial_cmp(&1);
+    println!("{:?}", lt);
+    
+    let eq = 0.partial_cmp(&0);
+    println!("{:?}", eq);
+    
+    let none = f32::NAN.partial_cmp(&f32::NAN);
+    println!("{:?}", none);
+}
+```
+
+Standard Output
+
+```rust
+Some(Greater)
+Some(Less)
+Some(Equal)
+None
+```
+
+结构体的比较是按照字段的次序依次比较的，看例子之前，必须要严格注意实现 PartialOrd 必须实现 PartialEq
+
+```rust
+#[derive(PartialEq, PartialOrd)]
+struct UnitOrder(u8,u8,u8);
+
+fn main() {
+    let u1 = UnitOrder(1,2,3);
+    let u2 = UnitOrder(1,3,2);
+    let lt = u1.partial_cmp(&u2);
+    println!("{:?}", lt);
+}
+```
+
+Standard Output
+
+```rust
+Some(Less)
+```
+
+枚举比较有意思，它们在实现了这个 trait 之后，它们之间只能相互比较自己的变体，且位置较前声明的变体，总是大于较晚声明的变体。
+
+```rust
+#[derive(PartialEq, PartialOrd)]
+enum EnumOrder{
+    A,
+    B,
+}
+
+fn main() {
+    let a = EnumOrder::A;
+    let b = EnumOrder::B;
+    let lt = a.partial_cmp(&b);
+    println!("{:?}", lt);
+}
+```
+
+Standard Output
+
+```rust
+Some(Less)
+```
+
+此外，还有一个 Ord 的 trait，这个 trait 是 Eq 和 PartialOrd 的结合，我们知道有 Eq 那么必然有 PartialEq， 也就是必然能判别是否相等。与此同时，再混合上 ParitalOrd，正好弥补了存在 None 的可能性，因而 Ord 总能捋出个顺序来，由此可知它返回的肯定不再是 Option 了，实际看下它的方法（提供了 cmp 方法）签名，返回的是个 Ordering 枚举
+
+```rust
+fn cmp(&self, other: &Self) -> Ordering;
+```
+
+写个例子瞅瞅
+
+```rust
+#[derive(PartialEq, Eq, PartialOrd, Ord)]
+enum EnumOrder {
+    A
+}
+
+fn main() {
+    let a1 = EnumOrder::A;
+    let a2 = EnumOrder::A;
+    let eq = a1.cmp(&a2);
+    println!("{:?}", eq);
+}
+```
+
+Standard Output
+
+```rust
+Equal
+```
+
+从 Ord 派成的结构体和枚举的行为和 PartialOrd 一致，有兴趣可以多写写看。
+
+# 尾巴
+
+这次仅仅介绍了等值和次序比较，涉及到了以下两组traits：
+- PartialEq & Eq
+- PartialOrd & Ord
+
+写例子的时候，联想到 Python 中的一组魔法方法：`__lt__`、`__gt__`、`__le__`、`__ge__`、`__eq__`和`__ne__`，不得不惊讶于编程的相通之处，感叹 trait 也可能是种 rust 的魔法吧。
