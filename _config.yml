@@ -21,27 +21,29 @@
 title: 行思笔记
 author:
   name: 行思笔记
-  email: dongruixiao@gmail.com 
+  email: dongruixiao@gmail.com
+
 description: >- # this means to ignore newlines until "baseurl:"
   分享技术洞见、个人思考和生活方式。
+
+feed_title: 订阅
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://hackthoughts.com" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Build settings
 theme: minima
+github: "jekyll/minima"
 show_excerpts: true
 permalink: /:title
 
 header_pages:
   - about.markdown
-  
 
 plugins:
   - jekyll-feed
 
 minima:
   skin: auto
-
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
