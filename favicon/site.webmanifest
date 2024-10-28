@@ -1,5 +1,5 @@
 {
-  "name": "行思笔记",
+  "name": "HackThoughts",
   "short_name": "行思笔记",
   "icons": [
     {
@@ -15,7 +15,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "background_color": "#000000",
   "display": "standalone"
 }
