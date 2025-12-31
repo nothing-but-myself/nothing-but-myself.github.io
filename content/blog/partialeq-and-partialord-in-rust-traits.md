@@ -1,6 +1,8 @@
 ---
-layout: post
 title: Rust Trait 中的 PartialEq 和 PartialOrd
+date: 2024-10-22
+slug: partialeq-and-partialord-in-rust-traits
+tags: [rust, traits, programming]
 ---
 我们都知道 rust 中有很多可以派生的 trait，在属性上增加 _#[derive(...)]_ 的相关标记即可默认为结构体或枚举生成对应 trait 的默认实现，这里我们讨论两种 tarit 实现，一种是等值比较，另一种是次序比较，看看他们有什么奥妙。
 
@@ -21,16 +23,16 @@ PartialEq 这个 trait 默认实现了 eq 方法，而由于全等的肯定是�
 fn main() {
     let eq_false = f64::NAN == f64::NAN;
     println!("{eq_false}");
-    
+
     let eq_false = f64::NAN.eq(&f64::NAN);
     println!("{eq_false}");
-    
+
     let eq_true = 1.0f64 == 1.00;
     println!("{eq_true}")
 }
 ```
 
-Standard Output 
+Standard Output
 
 ```rust
 false
@@ -51,17 +53,17 @@ fn main() {
     let a = RealEqual;
     let b = RealEqual;
     println!("{}", a==b);
-    
+
     let c = RealEqual2(8);
     let d = RealEqual2(8);
     let e = RealEqual2(9);
-    
+
     println!("{}", c.eq(&d));
     println!("{}", c.eq(&e));
 }
 ```
 
-Standard Output 
+Standard Output
 
 ```rust
 true
@@ -93,13 +95,13 @@ fn partial_cmp(&self, other: &Rhs) -> Option<Ordering>;
 fn main() {
     let gt = 1.partial_cmp(&0);
     println!("{:?}", gt);
-    
+
     let lt = 0.partial_cmp(&1);
     println!("{:?}", lt);
-    
+
     let eq = 0.partial_cmp(&0);
     println!("{:?}", eq);
-    
+
     let none = f32::NAN.partial_cmp(&f32::NAN);
     println!("{:?}", none);
 }

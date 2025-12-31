@@ -1,6 +1,8 @@
 ---
-layout: post
 title: IPython 怎么搞定模块重载？
+date: 2024-11-27
+slug: module-reloading-in-ipython
+tags: [python, ipython, workflow]
 ---
 IPython 作为交互式 shell 的典范，它的便捷性毋庸置疑。然而在开发中遇到「 简单修改一行代码，却无法热加载 」的 case 非常让人挠头，反复退出再重启 IPython 的操作绝对是蠢人般的体验。但其实我们稍加施放魔法，就可以解决这个让人哭笑不得的问题，即便你再键指如飞，没法抵制 **autoreload** 这个扩展插件发来的真香告警。
 

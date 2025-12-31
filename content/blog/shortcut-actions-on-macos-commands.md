@@ -1,6 +1,8 @@
 ---
-layout: post
 title: MacOS 命令行中的快捷操作
+date: 2024-11-27
+slug: shortcut-actions-on-macos-commands
+tags: [macos, terminal, productivity]
 ---
 
 
