@@ -2,9 +2,7 @@
 title: "Home"
 ---
 
-The shortest distance between two points is a straight line. But the most interesting journey? That's a zigzag.
-
----
+> The shortest distance between two points is a straight line. But the most interesting journey? That's a zigzag.
 
 Life rarely follows a linear path. We stumble, pivot, backtrack, and discover unexpected detours. Each turn reveals something we couldn't have seen from the main road.
 

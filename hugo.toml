@@ -5,6 +5,7 @@ theme = 'hugo-modus'
 copyright = '© 2026 zigzagging.io'
 
 enableRobotsTXT = true
+disableKinds = ['RSS']
 
 [params]
   description = 'Sharing my tech insights, thoughts, and lifestyle.'
@@ -16,16 +17,15 @@ enableRobotsTXT = true
   [markup.highlight]
     noClasses = false
 
+[outputs]
+  page = ["html", "markdown"]
+
 [menus]
   [[menus.main]]
-    name = 'Home'
-    pageRef = '/'
-    weight = 1
+    name = 'Tags'
+    url = '/tags/'
+    weight = 40
   [[menus.main]]
     name = 'Projects'
     url = 'https://apps.zigzagging.io'
     weight = 50
-  [[menus.main]]
-    name = 'About'
-    pageRef = '/about'
-    weight = 100

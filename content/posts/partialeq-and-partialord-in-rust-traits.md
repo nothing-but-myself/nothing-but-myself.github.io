@@ -6,7 +6,7 @@ tags: [rust, traits, programming]
 ---
 我们都知道 rust 中有很多可以派生的 trait，在属性上增加 _#[derive(...)]_ 的相关标记即可默认为结构体或枚举生成对应 trait 的默认实现，这里我们讨论两种 tarit 实现，一种是等值比较，另一种是次序比较，看看他们有什么奥妙。
 
-# 等值比较
+## 等值比较
 
 PartialEq 和 Eq 都用作等值比较，但不同在于 PartialEq 强调部分的、不完整的等同性，这也正是其名字中 Partial 的由来。
 
@@ -79,7 +79,7 @@ false
 fn eq(&self, other: &Rhs) -> bool;
 ```
 
-# 次序比较
+## 次序比较
 
 PartialOrd 提供了 partial_cmp 的方法。有了上面的经验，我们也先来看一下函数签名
 
@@ -189,7 +189,7 @@ Equal
 
 从 Ord 派成的结构体和枚举的行为和 PartialOrd 一致，有兴趣可以多写写看。
 
-# 尾巴
+## 尾巴
 
 这次仅仅介绍了等值和次序比较，涉及到了以下两组traits：
 - PartialEq & Eq

@@ -1,0 +1,27 @@
+<article>
+  <header>
+    {{ partial "state.html" . }}
+
+
+    <h1 class="mt-1">
+      {{ .Title }}
+    </h1>
+
+    {{ with .Params.tags }}
+    <div class="mt-4">
+      {{ range . }}
+        <a href="{{ "tags/" | relURL }}{{ . | urlize }}">#{{ . }}</a>
+      {{ end }}
+    </div>
+    {{ end }}
+
+    {{ partial "translations.html" . }}
+  </header>
+
+  {{ partial "toc.html" . }}
+  {{ partial "headline-hash.html" .Content }}
+
+  <footer class="mt-10">
+    {{ partial "metadata.html" . }}
+  </footer>
+</article>
