@@ -1,5 +1,5 @@
 ---
-title: "Home"
+title: "About"
 ---
 
 The shortest distance between two points is a straight line. But the most interesting journey? That's a zigzag.

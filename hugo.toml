@@ -1,25 +1,27 @@
 baseURL = 'https://zigzagging.io'
 languageCode = 'zh-CN'
 title = 'Zigzagging Blog'
-theme = 'hugo-bearblog'
-author = 'zigzagging.io'
-copyright = 'Copyright © 2024, zigzagging.io'
+theme = 'hugo-modus'
+copyright = '© 2026 zigzagging.io'
 
 enableRobotsTXT = true
 
-disableKinds = ['taxonomy']
-ignoreErrors = ['error-disable-taxonomy']
+[params]
+  description = 'Sharing my tech insights, thoughts, and lifestyle.'
 
 [permalinks]
-  blog = '/:slug/'
-
-[params]
-  description = '分享技术洞见、个人思考和生活方式。'
-  enablePostNavigator = true
+  posts = '/:slug/'
 
 [markup]
   [markup.highlight]
-    style = 'friendly'
-    lineNos = true
-    lineNumbersInTable = false
-    codeFences = true
+    noClasses = false
+
+[menus]
+  [[menus.main]]
+    name = 'Home'
+    pageRef = '/'
+    weight = 1
+  [[menus.main]]
+    name = 'About'
+    pageRef = '/about'
+    weight = 100
