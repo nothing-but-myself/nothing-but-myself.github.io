@@ -22,6 +22,10 @@ enableRobotsTXT = true
     pageRef = '/'
     weight = 1
   [[menus.main]]
+    name = 'Projects'
+    url = 'https://apps.zigzagging.io'
+    weight = 50
+  [[menus.main]]
     name = 'About'
     pageRef = '/about'
     weight = 100
