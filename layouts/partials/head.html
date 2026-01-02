@@ -1,0 +1,69 @@
+{{- $title := "" -}}
+{{- if .IsHome -}}
+  {{- $title = .Site.Title -}}
+{{- else if .IsPage -}}
+  {{- $title = printf "%s - %s" .Title .Site.Title -}}
+{{- else if .IsSection -}}
+  {{- $title = printf "%s - %s" (.Title | default (.Type | humanize)) .Site.Title -}}
+{{- end -}}
+
+{{- $description := "" -}}
+{{- with .Description -}}
+  {{- $description = . | truncate 160 -}}
+{{- else -}}
+  {{- if .IsPage -}}
+    {{- $description = .Summary | truncate 160 -}}
+  {{- else -}}
+    {{- with .Site.Params.description -}}
+      {{- $description = . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta
+  name="theme-color"
+  content="#ffffff"
+  media="(prefers-color-scheme: light)"
+/>
+<meta
+  name="theme-color"
+  content="#000000"
+  media="(prefers-color-scheme: dark)"
+/>
+
+<title>{{- $title -}}</title>
+
+<meta name="description" content="{{- $description -}}" />
+{{ template "_internal/opengraph.html" . }}
+{{ template "_internal/twitter_cards.html" . }}
+
+<link rel="canonical" href="{{ .Permalink }}" />
+{{ partial "favicon.html" . }}
+
+{{ $style := resources.Get "css/dist/main.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $style.RelPermalink }}" />
+
+<!-- Modus Chroma syntax highlighting -->
+{{ $operandi := resources.Get "css/dist/operandi-chroma-style.css" | minify | fingerprint }}
+<link
+  rel="stylesheet"
+  href="{{ $operandi.RelPermalink }}"
+  media="(prefers-color-scheme: light)"
+/>
+{{ $vivendi := resources.Get "css/dist/vivendi-chroma-style.css" | minify | fingerprint }}
+<link
+  rel="stylesheet"
+  href="{{ $vivendi.RelPermalink }}"
+  media="(prefers-color-scheme: dark)"
+/>
+
+{{ with .OutputFormats.Get "rss" -}}
+  {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
+{{ end }}
+
+{{ if hugo.IsProduction }}
+  {{ template "_internal/google_analytics.html" . }}
+{{ end }}
