@@ -9,6 +9,7 @@ disableKinds = ['RSS']
 
 [params]
   description = 'Sharing my tech insights, thoughts, and lifestyle.'
+  images = ['/og-image.jpg']
 
 [permalinks]
   posts = '/:slug/'
